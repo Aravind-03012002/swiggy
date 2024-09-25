@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Order Summary</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #121111;
+        }
+        .container {
+            max-width: 350px;
+            border: 1px solid #4a1ba8;
+            padding: 20px;
+            background: rgb(127, 27, 27);
+            position: relative;
+            overflow: hidden;
+        }
+        .restaurant-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .restaurant-details {
+            margin-left: 10px;
+        }
+        .restaurant-name {
+            font-weight: bold;
+        }
+        .blur-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(131, 13, 13, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: -1;
+        }
+        .item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .quantity {
+            display: flex;
+            align-items: center;
+        }
+        .quantity button {
+            background-color: #84a585;
+            /* color: rgb(130, 11, 11); */
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .bill-details {
+            margin-top: 20px;
+        }
+        .bill-details .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        .total {
+            font-weight: bold;
+        }
+        .restaurant-image {
+            width: 50px;
+            height: auto;
+            border-radius: 10px;
+        }
+        /* .additional-container {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #1c5ea0;
+            border-radius: 15px;
+        } */
+        .new-container {
+            background-color: #811919;
+            border: 1px solid #cce5ff;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+            filter: drop-shadow(2px 2px 2px black);
+           
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+        }
+        .checkbox-container input {
+            margin-right: 5px;
+        }
+        .special-instructions {
+            margin-top: 10px;
+        }
+        .special-instructions input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #sss{
+            border: 2px solid;
+        }
+        #one{
+            padding: 4px;
+        }
+        #pay{
+            margin-left: 80px;
+            padding: 8px;
+            background-color: #811919;
+        }
+        #pay:hover{
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const createOrderSummary = () => {
+            const container = document.createElement('div');
+            container.classList.add('container');
+
+            // Restaurant Info Section
+            const restaurantInfo = document.createElement('div');
+            restaurantInfo.classList.add('restaurant-info');
+
+            const restaurantImage = document.createElement('img');
+            restaurantImage.src = 'images.jpg';
+            restaurantImage.alt = 'Restaurant Image';
+            restaurantImage.classList.add('restaurant-image');
+            restaurantInfo.appendChild(restaurantImage);
+
+            const restaurantDetails = document.createElement('div');
+            restaurantDetails.classList.add('restaurant-details');
+
+            const restaurantName = document.createElement('div');
+            restaurantName.classList.add('restaurant-name');
+            restaurantName.innerText = 'lucky restaurant';
+            restaurantDetails.appendChild(restaurantName);
+
+            const restaurantAddress = document.createElement('div');
+            restaurantAddress.innerText = 'siddipet Local';
+            restaurantDetails.appendChild(restaurantAddress);
+
+            restaurantInfo.appendChild(restaurantDetails);
+            container.appendChild(restaurantInfo);
+
+            // Item Section
+            const itemContainer = document.createElement('div');
+            itemContainer.classList.add('item');
+
+            const vegLogo = document.createElement('img');
+            vegLogo.src = 'https://www.shutterstock.com/image-illustration/pure-veg-icon-logo-symbol-260nw-2190482501.jpg';
+            vegLogo.alt = 'Veg Logo';
+            vegLogo.style.width = '20px';
+            vegLogo.style.marginRight = '5px';
+
+            const itemLabel = document.createElement('div');
+            itemLabel.style.display = 'flex';
+            itemLabel.style.alignItems = 'center';
+            itemLabel.appendChild(vegLogo);
+
+            const itemName = document.createElement('span');
+            itemName.innerText = 'panner tikka';
+            itemLabel.appendChild(itemName);
+
+            itemContainer.appendChild(itemLabel);
+
+            const quantityDiv = document.createElement('div');
+            quantityDiv.classList.add('quantity');
+            quantityDiv.id='sss'
+
+            const minusButton = document.createElement('button');
+            minusButton.classList.add('minus');
+            minusButton.innerText = '-';
+            quantityDiv.appendChild(minusButton);
+
+            const quantityValue = document.createElement('span');
+            quantityValue.classList.add('quantity-value');
+            quantityValue.id='one'
+            quantityValue.innerText = '1';
+            quantityDiv.appendChild(quantityValue);
+
+            const plusButton = document.createElement('button');
+            plusButton.classList.add('plus');
+            plusButton.innerText = '+';
+            quantityDiv.appendChild(plusButton);
+
+            itemContainer.appendChild(quantityDiv);
+            const price = document.createElement('div');
+            price.classList.add('price');
+            price.innerText = '₹143';
+            itemContainer.appendChild(price);
+            container.appendChild(itemContainer);
+            // Special Instructions Input
+            const specialInstructionsContainer = document.createElement('div');
+            specialInstructionsContainer.classList.add('checkbox-container');
+            const ccc = document.createElement('input');
+            ccc.name='spicy';
+            ccc.type = 'radio';
+            ccc.id = 'thankYouCheckbox';
+            let extra= document.createElement('label');
+            extra.innerText='extra spicy'
+            specialInstructionsContainer.appendChild(ccc);
+            specialInstructionsContainer.appendChild(extra);
+            
+            // Special Instructions Input2
+            const specialInstructionsContainer1 = document.createElement('div');
+            specialInstructionsContainer1.classList.add('checkbox-container');
+            const ddd = document.createElement('input');
+            ddd.name='spicy';
+            ddd.type = 'radio';
+            ddd.id = 'thankYou';
+            let extra1= document.createElement('label');
+            extra1.innerText='No spicy'
+            specialInstructionsContainer.appendChild(ddd);
+            specialInstructionsContainer.appendChild(extra1);
+            
+            // Special Instructions Input3
+            const specialInstructionsContainer2 = document.createElement('div');
+            specialInstructionsContainer2.classList.add('checkbox-container');
+            const eee = document.createElement('input');
+            eee.name='spicy';
+            eee.type = 'radio';
+            eee.id = 'thankYou';
+            let extra2= document.createElement('label');
+            extra2.innerText='Normal'
+            specialInstructionsContainer.appendChild(eee);
+            specialInstructionsContainer.appendChild(extra2);
+            container.appendChild(specialInstructionsContainer);
+            
+            // New Container Below the Special Instructions
+            const newContainer = document.createElement('div');
+            newContainer.classList.add('new-container');
+
+            const checkboxContainer = document.createElement('div');
+            checkboxContainer.classList.add('checkbox-container');
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'radio';
+            checkbox.id = 'thankYouCheckbox';
+
+            const checkboxLabel = document.createElement('label');
+            // checkboxLabel.htmlFor = 'thankYouCheckbox';
+            checkboxLabel.innerText = 'avsram vuntey order chesuko  ';
+
+            checkboxContainer.appendChild(checkbox);
+            checkboxContainer.appendChild(checkboxLabel);
+            newContainer.appendChild(checkboxContainer);
+            newContainer.appendChild(document.createTextNode('lekapothey vuko macha (nenu ninnu namma COD iyya )'));
+
+            container.appendChild(newContainer);
+
+            // Bill Details
+            const billDetails = document.createElement('div');
+            billDetails.classList.add('bill-details');
+            const details = [
+                { label: 'Item Total', amount: '₹143' },
+                { label: 'Delivery partner fee', amount: '₹95' },
+                { label: 'Delivery Tip', amount: '₹2' },
+                { label: 'Platform fee', amount: '₹18' },
+                { label: 'GST and Restaurant Charges', amount: '₹8.83' },
+            ];
+
+            for (let i = 0; i < details.length; i++) {
+                const row = document.createElement('div');
+                row.classList.add('row');
+                const label = document.createElement('div');
+                label.innerText = details[i].label;
+                row.appendChild(label);
+                const amount = document.createElement('div');
+                amount.innerText = details[i].amount;
+                row.appendChild(amount);
+                billDetails.appendChild(row);
+            }
+
+            const totalRow = document.createElement('div');
+            totalRow.classList.add('row', 'total');
+            const totalLabel = document.createElement('div');
+            totalLabel.innerText = 'TO PAY';
+            totalRow.appendChild(totalLabel);
+            const totalAmount = document.createElement('div');
+             // Initial value; will update later
+            totalRow.appendChild(totalAmount);
+            billDetails.appendChild(totalRow);
+
+            container.appendChild(billDetails);
+            document.body.appendChild(container);
+
+            // for quantity buttons
+            const calculateTotal = (itemQuantity) => {
+                const basePrice = 143;
+                const deliveryFee = 95;
+                const platformFee = 6;
+                const gstPercentage = 0.01; // 5% GST
+
+                // Tiered pricing logic
+                let itemPrice;
+                if (itemQuantity <= 3) {
+                    itemPrice = basePrice;
+                } else if (itemQuantity <= 6) {
+                    itemPrice = basePrice * 0.9; // 10% discount for 4-6 items
+                } else {
+                    itemPrice = basePrice * 0.8; // 20% discount for 7 or more items
+                }
+
+                const itemTotal = itemPrice * itemQuantity;
+                const gstCharges = itemTotal * gstPercentage;
+                const total = itemTotal + deliveryFee + platformFee + gstCharges;
+
+                return {
+                    itemTotal: itemTotal.toFixed(2),
+                    gstCharges: gstCharges.toFixed(2),
+                    total: total.toFixed(2)
+                };
+            };
+
+            const updateTotal = () => {
+                const quantity = parseInt(quantityValue.innerText);
+                const { itemTotal, gstCharges, total } = calculateTotal(quantity);
+
+                details[0].amount = `₹${itemTotal}`;
+                details[4].amount = `₹${gstCharges}`;
+
+                // Update the displayed amounts
+                billDetails.childNodes.forEach((row, index) => {
+                    if (index < details.length) {
+                        row.childNodes[1].innerText = details[index].amount;
+                    }
+                });
+
+                totalAmount.innerText = `₹${total}`;
+            };
+
+            minusButton.addEventListener('click', () => {
+                let currentValue = parseInt(quantityValue.innerText);
+                if (currentValue > 1) {
+                    quantityValue.innerText = currentValue - 1;
+                    updateTotal();
+                }
+            });
+
+            plusButton.addEventListener('click', () => {
+                let currentValue = parseInt(quantityValue.innerText);
+                quantityValue.innerText = currentValue + 1;
+                updateTotal();
+            });
+
+            // Initialize total on page load
+            updateTotal();
+        let button=document.createElement('button');
+        button.innerText='proceed to pay';
+        button.id='pay';
+        // button.addEventListener("click",function(){
+        //     let image=document.createElement('img');
+        //     img.src='./images.jpg'
+        // })
+        container.appendChild(button);
+        };
+
+        // Call the function to create the order summary
+        createOrderSummary();
+       
+        
+    </script>
+</body>
+</html>
