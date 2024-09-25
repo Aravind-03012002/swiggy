@@ -110,12 +110,17 @@
             padding: 4px;
         }
         #pay{
-            margin-left: 80px;
+            margin-left: 120px;
             padding: 8px;
             background-color: #811919;
         }
         #pay:hover{
             background-color: white;
+        }
+         #image{
+            width: 100px;
+            margin-left: 120px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -356,10 +361,13 @@
         let button=document.createElement('button');
         button.innerText='proceed to pay';
         button.id='pay';
-        // button.addEventListener("click",function(){
-        //     let image=document.createElement('img');
-        //     img.src='./images.jpg'
-        // })
+        button.addEventListener("click",function(){
+            let image=document.createElement('img');
+            image.src='./sca.jpg'
+            image.id='image';
+            container.appendChild(image); 
+            button.setAttribute("disabled" , "true");
+         })
         container.appendChild(button);
         };
 
